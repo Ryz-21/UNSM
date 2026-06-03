@@ -1,0 +1,113 @@
+<section
+  id="comentarios"
+  class="scroll-mt-20 bg-white rounded-2xl shadow-sm border border-menta-100 overflow-hidden"
+>
+  <header class="px-6 py-5 border-b border-menta-100 bg-menta-50/60">
+    <div class="flex items-center gap-3">
+      <span
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-menta-500 text-white"
+        aria-hidden="true"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z" />
+        </svg>
+      </span>
+      <div>
+        <h2 class="text-lg md:text-xl font-bold text-menta-900">Caja de comentarios</h2>
+        <p class="text-sm text-menta-900/70">
+          Comparte experiencias, dudas o consejos con la comunidad.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="p-6 grid gap-6 lg:grid-cols-3">
+    <form
+      (ngSubmit)="submit()"
+      class="lg:col-span-1 space-y-3"
+      aria-label="Publicar comentario"
+    >
+      <div>
+        <label for="cname" class="block text-sm font-medium text-menta-900 mb-1">Nombre</label>
+        <input
+          id="cname"
+          type="text"
+          [ngModel]="name()"
+          (ngModelChange)="name.set($event)"
+          name="name"
+          maxlength="40"
+          placeholder="Tu nombre o seudónimo"
+          class="input-field"
+        />
+      </div>
+      <div>
+        <label for="cmsg" class="block text-sm font-medium text-menta-900 mb-1">Mensaje</label>
+        <textarea
+          id="cmsg"
+          rows="5"
+          [ngModel]="message()"
+          (ngModelChange)="message.set($event)"
+          name="message"
+          maxlength="500"
+          placeholder="Escribe tu mensaje..."
+          class="input-field resize-none"
+        ></textarea>
+      </div>
+      @if (error(); as e) {
+        <p class="text-sm text-red-700" role="alert">{{ e }}</p>
+      }
+      <button type="submit" class="btn-primary">
+        Publicar
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m22 2-7 20-4-9-9-4Z" />
+          <path d="M22 2 11 13" />
+        </svg>
+      </button>
+    </form>
+
+    <ul class="lg:col-span-2 space-y-3" aria-label="Lista de comentarios">
+      @for (c of comments.comments(); track c.id) {
+        <li
+          class="rounded-xl border border-menta-100 bg-menta-50/40 p-4 hover:bg-menta-50 transition-colors"
+        >
+          <div class="flex items-center justify-between gap-2">
+            <p class="text-sm font-semibold text-menta-900">{{ c.name }}</p>
+            <time class="text-xs text-menta-900/60" [attr.datetime]="c.at.toISOString()">
+              {{ c.at | date: 'dd MMM yyyy, HH:mm' }}
+            </time>
+          </div>
+          <p class="mt-1.5 text-sm text-menta-900 leading-relaxed whitespace-pre-line">
+            {{ c.message }}
+          </p>
+        </li>
+      } @empty {
+        <li
+          class="rounded-xl border border-dashed border-menta-100 bg-menta-50/30 p-6 text-center text-sm text-menta-900/60"
+        >
+          Aún no hay comentarios. ¡Sé el primero en escribir!
+        </li>
+      }
+    </ul>
+  </div>
+</section>

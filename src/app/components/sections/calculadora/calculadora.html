@@ -1,0 +1,215 @@
+<section
+  id="calculadora"
+  class="scroll-mt-20 bg-white rounded-2xl shadow-sm border border-menta-100 overflow-hidden"
+>
+  <header class="px-6 py-5 border-b border-menta-100 bg-menta-50/60">
+    <div class="flex items-center gap-3">
+      <span
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-menta-500 text-white"
+        aria-hidden="true"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <line x1="8" y1="6" x2="16" y2="6" />
+          <line x1="8" y1="12" x2="8" y2="12" />
+          <line x1="12" y1="12" x2="12" y2="12" />
+          <line x1="16" y1="12" x2="16" y2="12" />
+          <line x1="8" y1="16" x2="8" y2="16" />
+          <line x1="12" y1="16" x2="12" y2="12" />
+          <line x1="16" y1="16" x2="16" y2="12" />
+        </svg>
+      </span>
+      <div>
+        <h2 class="text-lg md:text-xl font-bold text-menta-900">Calculadora de riesgo</h2>
+        <p class="text-sm text-menta-900/70">
+          Estimación orientativa basada en factores de riesgo conocidos.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div class="p-6 grid gap-6 md:grid-cols-2">
+    <form class="space-y-4" (ngSubmit)="$event.preventDefault()">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div>
+          <label for="age" class="block text-sm font-medium text-menta-900 mb-1">Edad</label>
+          <input
+            id="age"
+            type="number"
+            min="1"
+            max="120"
+            [ngModel]="age()"
+            (ngModelChange)="age.set($event)"
+            name="age"
+            placeholder="Años"
+            class="input-field"
+          />
+        </div>
+        <div>
+          <label for="height" class="block text-sm font-medium text-menta-900 mb-1"
+            >Altura (cm)</label
+          >
+          <input
+            id="height"
+            type="number"
+            min="50"
+            max="250"
+            [ngModel]="heightCm()"
+            (ngModelChange)="heightCm.set($event)"
+            name="height"
+            placeholder="cm"
+            class="input-field"
+          />
+        </div>
+        <div>
+          <label for="weight" class="block text-sm font-medium text-menta-900 mb-1"
+            >Peso (kg)</label
+          >
+          <input
+            id="weight"
+            type="number"
+            min="1"
+            max="400"
+            [ngModel]="weightKg()"
+            (ngModelChange)="weightKg.set($event)"
+            name="weight"
+            placeholder="kg"
+            class="input-field"
+          />
+        </div>
+      </div>
+
+      <div>
+        <p class="text-sm font-medium text-menta-900 mb-1">IMC calculado</p>
+        <div
+          class="rounded-lg bg-menta-50 border border-menta-100 px-3 py-2 text-sm text-menta-900"
+        >
+          @if (bmi() !== null) {
+            <span class="font-semibold">{{ bmi() }}</span>
+            <span class="text-menta-900/70 ml-2">
+              @switch (true) {
+                @case (bmi()! < 18.5) {
+                  Bajo peso
+                }
+                @case (bmi()! < 25) {
+                  Normal
+                }
+                @case (bmi()! < 30) {
+                  Sobrepeso
+                }
+                @default {
+                  Obesidad
+                }
+              }
+            </span>
+          } @else {
+            <span class="text-menta-900/60">Ingresa altura y peso</span>
+          }
+        </div>
+      </div>
+
+      <div>
+        <label for="family" class="block text-sm font-medium text-menta-900 mb-1"
+          >Antecedentes familiares con diabetes</label
+        >
+        <select
+          id="family"
+          [ngModel]="familyHistory()"
+          (ngModelChange)="familyHistory.set($event)"
+          name="family"
+          class="input-field"
+        >
+          <option value="no">No</option>
+          <option value="second">Sí, tíos o abuelos</option>
+          <option value="first">Sí, padres o hermanos</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="activity" class="block text-sm font-medium text-menta-900 mb-1"
+          >Actividad física semanal</label
+        >
+        <select
+          id="activity"
+          [ngModel]="activity()"
+          (ngModelChange)="activity.set($event)"
+          name="activity"
+          class="input-field"
+        >
+          <option value="regular">Regular (≥ 150 min/semana)</option>
+          <option value="low">Baja (30–149 min/semana)</option>
+          <option value="sedentary">Sedentaria (menos de 30 min)</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="bp" class="block text-sm font-medium text-menta-900 mb-1"
+          >Presión arterial</label
+        >
+        <select
+          id="bp"
+          [ngModel]="bloodPressure()"
+          (ngModelChange)="bloodPressure.set($event)"
+          name="bp"
+          class="input-field"
+        >
+          <option value="normal">Normal (≤ 120/80)</option>
+          <option value="high">Alta (diagnosticada)</option>
+          <option value="unknown">No lo sé</option>
+        </select>
+      </div>
+
+      <div class="flex items-center gap-2 pt-2">
+        <button type="button" (click)="reset()" class="btn-secondary"> Limpiar </button>
+      </div>
+    </form>
+
+    <aside
+      class="rounded-xl border border-menta-100 bg-menta-50/50 p-5 flex flex-col"
+      aria-live="polite"
+    >
+      @if (result(); as r) {
+        <p class="text-xs font-semibold uppercase tracking-wide text-menta-900/70">Resultado</p>
+        <p
+          class="mt-1 text-2xl font-bold"
+          [class.text-menta-900]="r.level === 'bajo'"
+          [class.text-yellow-700]="r.level === 'moderado'"
+          [class.text-red-700]="r.level === 'alto'"
+        >
+          {{ r.label }}
+        </p>
+        <div class="mt-3 h-2 w-full rounded-full bg-menta-100 overflow-hidden">
+          <div
+            class="h-full transition-all duration-500"
+            [style.width.%]="(r.score / r.maxScore) * 100"
+            [class.bg-menta-500]="r.level === 'bajo'"
+            [class.bg-yellow-500]="r.level === 'moderado'"
+            [class.bg-red-500]="r.level === 'alto'"
+          ></div>
+        </div>
+        <p class="mt-1 text-xs text-menta-900/70">
+          Puntuación: {{ r.score }} / {{ r.maxScore }}
+        </p>
+        <p class="mt-4 text-sm text-menta-900 leading-relaxed">{{ r.advice }}</p>
+      } @else {
+        <p class="text-xs font-semibold uppercase tracking-wide text-menta-900/70">Resultado</p>
+        <p class="mt-2 text-sm text-menta-900/70">
+          Completa al menos edad, altura y peso para ver tu estimación.
+        </p>
+        <div class="mt-auto pt-6 text-xs text-menta-900/60">
+          Esta herramienta es orientativa y no reemplaza el diagnóstico médico.
+        </div>
+      }
+    </aside>
+  </div>
+</section>

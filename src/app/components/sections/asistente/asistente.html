@@ -1,0 +1,104 @@
+<section
+  id="asistente"
+  class="scroll-mt-20 bg-white rounded-2xl shadow-sm border border-menta-100 overflow-hidden"
+>
+  <header class="px-6 py-5 border-b border-menta-100 bg-menta-50/60">
+    <div class="flex items-center gap-3">
+      <span
+        class="inline-flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-menta-100 ring-2 ring-menta-200"
+        aria-hidden="true"
+      >
+        <img
+          src="assets/housesinfondo.png"
+          alt=""
+          class="h-full w-full object-cover"
+        />
+      </span>
+      <div>
+        <h2 class="text-lg md:text-xl font-bold text-menta-900">Asistente sobre diabetes</h2>
+        <p class="text-sm text-menta-900/70">
+          Pregunta lo que necesites. (Modo demostración, respuestas predefinidas)
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <div
+    #scroll
+    class="h-80 md:h-96 overflow-y-auto px-4 py-4 space-y-3 bg-menta-50/30"
+  >
+      @for (msg of assistant.messages(); track msg.id) {
+        @if (msg.author === 'bot') {
+          <div class="flex items-start gap-2 max-w-[85%]">
+            <span
+              class="mt-0.5 inline-flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-menta-100 ring-1 ring-menta-200"
+              aria-hidden="true"
+            >
+              <img
+                src="assets/housesinfondo.png"
+                alt=""
+                class="h-full w-full object-cover"
+              />
+            </span>
+            <div
+              class="rounded-2xl rounded-tl-sm bg-menta-100 px-4 py-2.5 text-sm text-menta-900"
+            >
+              <p>{{ msg.text }}</p>
+            </div>
+          </div>
+        } @else {
+          <div class="flex items-start gap-2 max-w-[85%] ml-auto justify-end">
+            <div
+              class="rounded-2xl rounded-tr-sm bg-menta-500 px-4 py-2.5 text-sm text-white shadow-sm"
+            >
+              <p>{{ msg.text }}</p>
+            </div>
+          </div>
+        }
+      }
+  </div>
+
+  <form
+    (ngSubmit)="send()"
+    class="border-t border-menta-100 p-3 md:p-4 bg-white"
+  >
+    <div class="flex items-end gap-2">
+      <label class="sr-only" for="assistant-input">Escribe tu pregunta</label>
+      <textarea
+        id="assistant-input"
+        rows="1"
+        [ngModel]="draft()"
+        (ngModelChange)="draft.set($event)"
+        (keydown)="onKeydown($event)"
+        name="message"
+        placeholder="Escribe tu pregunta sobre diabetes..."
+        class="input-field flex-1 resize-none !rounded-xl !py-2.5"
+      ></textarea>
+      <button
+        type="submit"
+        [disabled]="!draft().trim()"
+        class="btn-icon"
+        aria-label="Enviar mensaje"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+    <p class="mt-1.5 text-[11px] text-menta-900/60 px-1">
+      Pulsa Enter para enviar. Shift + Enter para nueva línea.
+    </p>
+  </form>
+</section>

@@ -1,0 +1,45 @@
+<div id="top" class="space-y-10">
+  <section
+    class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-menta-500 to-menta-900 text-white px-6 py-10 md:px-10 md:py-14 animate-fade-in-up"
+  >
+    <div class="max-w-2xl">
+      <span
+        class="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide backdrop-blur"
+      >
+        <span class="h-2 w-2 rounded-full bg-white"></span>
+        Plataforma educativa
+      </span>
+      <h1 class="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+        Tratamiento y control de la diabetes
+      </h1>
+      <p class="mt-3 text-base md:text-lg text-white/90 max-w-xl">
+        Información clara, herramientas prácticas y una comunidad que acompaña tu camino
+        hacia una vida más saludable.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="#asistente" class="btn-primary"> Hablar con el asistente </a>
+        <a href="#calculadora" class="btn-ghost"> Calcular mi riesgo </a>
+      </div>
+    </div>
+
+    <div
+      class="pointer-events-none absolute -right-10 -bottom-10 h-56 w-56 rounded-full bg-white/10 blur-2xl"
+      aria-hidden="true"
+    ></div>
+  </section>
+
+  <div class="animate-fade-in-up" style="animation-delay: 80ms">
+    <app-asistente />
+  </div>
+  <div class="animate-fade-in-up" style="animation-delay: 160ms">
+    <app-calculadora />
+  </div>
+  <div class="animate-fade-in-up" style="animation-delay: 240ms">
+    <app-comentarios />
+  </div>
+
+  <footer class="text-center text-xs text-menta-900/60 py-6">
+    © {{ 2026 }} UNSMF — Esta plataforma es informativa. No reemplaza la consulta médica
+    profesional.
+  </footer>
+</div>
