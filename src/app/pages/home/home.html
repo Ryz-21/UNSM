@@ -2,7 +2,7 @@
   <section
     class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-menta-500 to-menta-900 text-white px-6 py-10 md:px-10 md:py-14 animate-fade-in-up"
   >
-    <div class="max-w-2xl">
+    <div class="max-w-2xl relative z-[2]">
       <span
         class="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide backdrop-blur"
       >
@@ -22,17 +22,20 @@
       </div>
     </div>
 
-    <div
-      class="pointer-events-none absolute -right-10 -bottom-10 h-56 w-56 rounded-full bg-white/10 blur-2xl"
+    <img
+      src="/assets/Fondo.jpeg"
+      alt=""
       aria-hidden="true"
-    ></div>
+      class="pointer-events-none absolute inset-0 w-full h-full object-cover"
+    />
 
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-menta-500/70 to-menta-900/80 z-[1]"></div>
 
     <img
       src="/assets/housesinfondo.png"
       alt=""
       aria-hidden="true"
-      class="pointer-events-none absolute bottom-1 right-0 w-48 sm:w-64 md:w-80 lg:w-96 object-contain"
+      class="pointer-events-none absolute bottom-1 right-0 w-48 sm:w-64 md:w-80 lg:w-96 object-contain z-10"
       style="mask-image: linear-gradient(to top, black 40%, transparent 100%); -webkit-mask-image: linear-gradient(to top, black 40%, transparent 100%);"
     />
   </section>
