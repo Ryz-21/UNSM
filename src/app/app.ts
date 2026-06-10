@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Navbar } from './components/layout/navbar/navbar-component';
+import { Sidebar } from './components/layout/sidebar/sidebar-component';
+import { FloatingAssistant } from './components/layout/floating-assistant/floating-assistant';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar],
+  imports: [RouterOutlet, Sidebar, FloatingAssistant],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

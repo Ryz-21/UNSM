@@ -1,0 +1,79 @@
+@reference "tailwindcss";
+
+:host {
+  display: block;
+}
+
+:host ::ng-deep .animate-fade-in-up {
+  animation: fadeInUp 500ms ease-out both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+:host ::ng-deep .food-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-menta-100);
+  background-color: #fff;
+  transition:
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+
+:host ::ng-deep .food-card:hover {
+  box-shadow: 0 4px 12px rgb(91 186 166 / 0.12);
+  transform: translateY(-1px);
+}
+
+:host ::ng-deep .food-card-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.75rem;
+  background-color: var(--color-menta-50);
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+:host ::ng-deep .food-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+:host ::ng-deep .plan-print-area {
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+@media print {
+  body > :not(.plan-print-area) {
+    display: none !important;
+  }
+
+  body > .plan-print-area {
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  a[routerLink],
+  button {
+    display: none !important;
+  }
+}

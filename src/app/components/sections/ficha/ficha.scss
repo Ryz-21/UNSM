@@ -1,0 +1,28 @@
+@reference "tailwindcss";
+
+:host {
+  display: block;
+}
+
+:host ::ng-deep .ficha-print-area {
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+@media print {
+  body > :not(.ficha-print-area) {
+    display: none !important;
+  }
+
+  body > .ficha-print-area {
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  button {
+    display: none !important;
+  }
+}

@@ -1,0 +1,105 @@
+<button
+  (click)="toggle()"
+  class="floating-btn"
+  [class.is-open]="isOpen()"
+  aria-label="Abrir asistente"
+>
+  @if (isOpen()) {
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
+  } @else {
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
+  }
+</button>
+
+@if (isOpen()) {
+  <div
+    class="fixed inset-0 z-40 bg-black/10"
+    (click)="close()"
+    tabindex="0"
+    aria-hidden="true"
+  ></div>
+}
+
+@if (isOpen()) {
+  <div class="fixed bottom-20 sm:bottom-24 right-0 sm:right-4 z-50 w-full sm:w-[360px] max-h-[80vh] sm:max-h-[70vh] bg-white rounded-none sm:rounded-2xl shadow-xl border-t sm:border border-menta-100 overflow-hidden flex flex-col">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-menta-100 bg-menta-50/60">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-menta-100 ring-1 ring-menta-200">
+          <img src="assets/housesinfondo.png" alt="" class="h-full w-full object-cover" />
+        </span>
+        <div>
+          <span class="text-sm font-semibold text-menta-900">Asistente</span>
+          <p class="text-[11px] text-menta-900/60">Modo demostración</p>
+        </div>
+      </div>
+      <button
+        (click)="close()"
+        class="inline-flex h-7 w-7 items-center justify-center rounded-full text-menta-900/60 hover:bg-menta-100 hover:text-menta-900 transition-colors duration-200"
+        aria-label="Cerrar asistente"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 6 6 18" />
+          <path d="m6 6 12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div
+      #scroll
+      class="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-menta-50/30"
+      role="log"
+      aria-live="polite"
+    >
+      @for (msg of assistant.messages(); track msg.id) {
+        @if (msg.author === 'bot') {
+          <div class="flex items-start gap-2 max-w-[90%]">
+            <span class="mt-0.5 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-menta-100 ring-1 ring-menta-200" aria-hidden="true">
+              <img src="assets/housesinfondo.png" alt="" class="h-full w-full object-cover" />
+            </span>
+            <div class="rounded-2xl rounded-tl-sm bg-menta-100 px-3 py-2 text-sm text-menta-900">
+              <p>{{ msg.text }}</p>
+            </div>
+          </div>
+        } @else {
+          <div class="flex items-start gap-2 max-w-[90%] ml-auto justify-end">
+            <div class="rounded-2xl rounded-tr-sm bg-menta-500 px-3 py-2 text-sm text-white shadow-sm">
+              <p>{{ msg.text }}</p>
+            </div>
+          </div>
+        }
+      }
+    </div>
+
+    <form (ngSubmit)="send()" class="border-t border-menta-100 p-3 bg-white">
+      <div class="flex items-end gap-2">
+        <label class="sr-only" for="floating-input">Escribe tu pregunta</label>
+        <textarea
+          id="floating-input"
+          rows="1"
+          [ngModel]="draft()"
+          (ngModelChange)="draft.set($event)"
+          (keydown)="onKeydown($event)"
+          name="message"
+        placeholder="Escribe tu pregunta..."
+        class="input-field flex-1 resize-none !rounded-xl !py-2.5 text-sm"
+      ></textarea>
+      <button
+        type="submit"
+        [disabled]="!draft().trim()"
+        class="btn-icon !h-11 !w-11 !rounded-xl"
+        aria-label="Enviar mensaje"
+      >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
+}

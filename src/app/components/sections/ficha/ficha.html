@@ -1,0 +1,72 @@
+@if (patient(); as p) {
+  <div class="ficha-print-area">
+    <div class="rounded-xl border border-menta-100 bg-white overflow-hidden">
+      <div class="bg-menta-500 px-4 py-3">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wide">Ficha de resumen del paciente</h3>
+      </div>
+
+      <div class="p-4 sm:p-5 grid gap-x-6 gap-y-3 sm:grid-cols-2 text-sm">
+        <div class="flex items-center gap-2">
+          <span class="text-menta-500 font-semibold w-28 shrink-0">Nombre</span>
+          <span class="text-menta-900">{{ p.name || '—' }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-menta-500 font-semibold w-28 shrink-0">Edad</span>
+          <span class="text-menta-900">{{ p.age }} años</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-menta-500 font-semibold w-28 shrink-0">Rango de edad</span>
+          <span class="text-menta-900">{{ p.ageRange }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-menta-500 font-semibold w-28 shrink-0">Estatura</span>
+          <span class="text-menta-900">{{ p.heightCm }} cm</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-menta-500 font-semibold w-28 shrink-0">Peso</span>
+          <span class="text-menta-900">{{ p.weightKg }} kg</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-menta-500 font-semibold w-28 shrink-0">IMC</span>
+          <span class="text-menta-900">{{ p.bmi }} — {{ p.bmiCategory }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-menta-500 font-semibold w-28 shrink-0">Actividad física</span>
+          <span class="text-menta-900">{{ p.activity }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-menta-500 font-semibold w-28 shrink-0">Antecedentes</span>
+          <span class="text-menta-900">{{ p.familyHistory }}</span>
+        </div>
+        <div class="flex items-center gap-2 sm:col-span-2">
+          <span class="text-menta-500 font-semibold w-28 shrink-0">Presión arterial</span>
+          <span class="text-menta-900">{{ p.bloodPressure }}</span>
+        </div>
+        <div class="flex items-center gap-2 sm:col-span-2 pt-2 border-t border-menta-100">
+          <span class="text-menta-500 font-semibold w-28 shrink-0">Resultado</span>
+          <span
+            class="font-bold"
+            [class.text-menta-900]="p.riskLevel === 'bajo'"
+            [class.text-yellow-700]="p.riskLevel === 'moderado'"
+            [class.text-red-700]="p.riskLevel === 'alto'"
+          >
+            {{ p.riskLabel }} ({{ p.riskScore }}/{{ p.riskMaxScore }})
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      (click)="downloadPdf()"
+      class="btn-primary !rounded-xl !text-xs mt-3"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="7 10 12 15 17 10" />
+        <line x1="12" y1="15" x2="12" y2="3" />
+      </svg>
+      DESCARGAR FICHA PACIENTE (PDF)
+    </button>
+  </div>
+}

@@ -1,4 +1,4 @@
-<div id="top" class="space-y-10">
+<div class="space-y-10">
   <section
     class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-menta-500 to-menta-900 text-white px-6 py-10 md:px-10 md:py-14 animate-fade-in-up"
   >
@@ -17,8 +17,8 @@
         hacia una vida más saludable.
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
-        <a href="#asistente" class="btn-primary"> Hablar con el asistente </a>
-        <a href="#calculadora" class="btn-ghost"> Calcular mi riesgo </a>
+        <a routerLink="/asistente" class="btn-primary"> Hablar con el asistente </a>
+        <a routerLink="/calculadora" class="btn-ghost"> Calcular mi riesgo </a>
       </div>
     </div>
 
@@ -28,18 +28,8 @@
     ></div>
   </section>
 
-  <div class="animate-fade-in-up" style="animation-delay: 80ms">
-    <app-asistente />
-  </div>
-  <div class="animate-fade-in-up" style="animation-delay: 160ms">
-    <app-calculadora />
-  </div>
-  <div class="animate-fade-in-up" style="animation-delay: 240ms">
-    <app-comentarios />
-  </div>
-
   <footer class="text-center text-xs text-menta-900/60 py-6">
-    © {{ 2026 }} UNSMF — Esta plataforma es informativa. No reemplaza la consulta médica
+    &copy; 2026 UNSMF — Esta plataforma es informativa. No reemplaza la consulta médica
     profesional.
   </footer>
 </div>

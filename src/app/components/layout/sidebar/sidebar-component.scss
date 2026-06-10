@@ -1,0 +1,46 @@
+@reference "tailwindcss";
+
+:host {
+  display: block;
+}
+
+:host ::ng-deep .sidebar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-menta-900);
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    transform 150ms ease;
+}
+
+:host ::ng-deep .sidebar-link:hover {
+  background-color: var(--color-menta-100);
+}
+
+:host ::ng-deep .sidebar-link:active {
+  transform: scale(0.97);
+}
+
+:host ::ng-deep .sidebar-link-active {
+  background-color: var(--color-menta-100);
+  font-weight: 600;
+}
+
+:host ::ng-deep .sidebar-link-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 1.25rem;
+  border-radius: 0 2px 2px 0;
+  background-color: var(--color-menta-500);
+}

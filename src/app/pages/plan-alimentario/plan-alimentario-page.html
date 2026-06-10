@@ -1,0 +1,86 @@
+<div class="space-y-8 animate-fade-in-up plan-print-area">
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+    <div>
+      <h1 class="text-2xl md:text-3xl font-bold text-menta-900">Plan alimentario</h1>
+      <p class="text-sm text-menta-900/70 mt-1">
+        Alimentos recomendados para una dieta equilibrada en el control de la diabetes tipo 2
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <button type="button" (click)="downloadPdf()" class="btn-secondary !text-xs">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        Descargar mini-plan completo (PDF)
+      </button>
+      <a routerLink="/calculadora" class="btn-secondary !text-xs whitespace-nowrap self-start sm:self-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5m14 0-7-7m7 7-7 7" />
+        </svg>
+        Volver a calculadora
+      </a>
+    </div>
+  </div>
+
+  <section>
+    <h2 class="text-lg font-bold text-menta-900 mb-4">🗓️ Plan semanal</h2>
+    <div class="grid gap-6 md:grid-cols-3">
+      @for (day of weekPlan; track day.day) {
+        <div class="rounded-xl border border-menta-100 bg-white overflow-hidden">
+          <div class="bg-menta-500 px-4 py-2.5">
+            <h3 class="text-sm font-bold text-white">{{ day.day }}</h3>
+          </div>
+          <div class="p-4 space-y-3">
+            @for (meal of day.meals; track meal.meal) {
+              <div>
+                <p class="text-xs font-semibold text-menta-500 uppercase tracking-wide">{{ meal.meal }}</p>
+                <p class="text-sm text-menta-900 mt-0.5">{{ meal.dish }}</p>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  @for (cat of categories; track cat.title) {
+    <section>
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-2xl" aria-hidden="true">{{ cat.icon }}</span>
+        <h2 class="text-lg font-bold text-menta-900">{{ cat.title }}</h2>
+      </div>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        @for (item of cat.items; track item.name) {
+          <div class="food-card">
+            <div class="food-card-icon">
+              <span aria-hidden="true">{{ item.emoji }}</span>
+            </div>
+            <div class="food-card-body">
+              <h3 class="font-semibold text-menta-900">{{ item.name }}</h3>
+              <p class="text-xs font-medium text-menta-500">{{ item.benefit }}</p>
+              <p class="text-sm text-menta-900/70 mt-1 leading-relaxed">{{ item.detail }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  }
+
+  <div class="rounded-xl bg-menta-50 border border-menta-100 p-4 sm:p-5 text-sm text-menta-900/80 leading-relaxed">
+    <p class="font-semibold text-menta-900 mb-1">Recomendaciones generales</p>
+    <ul class="list-disc pl-4 space-y-1">
+      <li>Fracciona tu alimentación en 5 comidas al día (3 principales + 2 colaciones).</li>
+      <li>Prioriza alimentos con índice glucémico bajo y ricos en fibra.</li>
+      <li>Evita azúcares añadidos, harinas refinadas y ultraprocesados.</li>
+      <li>Bebe al menos 2 litros de agua al día.</li>
+      <li>Consulta con un nutricionista para un plan personalizado.</li>
+    </ul>
+  </div>
+
+  <footer class="text-center text-xs text-menta-900/60 py-4">
+    Esta información es orientativa y no reemplaza la consulta con un profesional de la salud o nutricionista.
+  </footer>
+</div>
