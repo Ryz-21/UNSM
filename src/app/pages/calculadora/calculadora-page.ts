@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Calculadora } from '../../components/sections/calculadora/calculadora';
 
+/* Componente encargado de mostrar la página de la calculadora */
 @Component({
   selector: 'app-calculadora-page',
   imports: [Calculadora],
