@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Comentarios } from '../../components/sections/comentarios/comentarios';
 
+// Componente que representa la página de comentarios
 @Component({
   selector: 'app-comentarios-page',
   imports: [Comentarios],
